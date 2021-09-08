@@ -18,7 +18,7 @@ public class SwiftAccountManagerPlugin: NSObject, FlutterPlugin {
     private func addAccount(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         if let args = call.arguments as? [String: String] {
             // let preferences = UserDefaults.standard;
-            let preferences = UserDefaults(suiteName: "group.com.sum.eduid")?;
+            let preferences = UserDefaults(suiteName: "group.com.sum.eduid")!;
             var accounts = preferences.array(forKey: constAccountsPreference) as? [[String: Any]] ?? [[String: Any]]();
             if !accounts.contains(where: { $0[constAccountType] as? String == args[constAccountType] &&
                                     $0[constAccountName] as? String == args[constAccountName] }) {
@@ -37,7 +37,7 @@ public class SwiftAccountManagerPlugin: NSObject, FlutterPlugin {
     
     private func getAccounts(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         var data: [[String: String?]] = [];
-            let preferences = UserDefaults(suiteName: "group.com.sum.eduid")?;
+            let preferences = UserDefaults(suiteName: "group.com.sum.eduid")!;
         let accounts = preferences.array(forKey: constAccountsPreference) as? [[String: Any]] ?? [[String: Any]]();
         for account in accounts {
             data.append([
@@ -51,7 +51,7 @@ public class SwiftAccountManagerPlugin: NSObject, FlutterPlugin {
     private func getAccessToken(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         var data: [String: String]? = nil;
         if let args = call.arguments as? [String: String?] {
-                let preferences = UserDefaults(suiteName: "group.com.sum.eduid")?;
+            let preferences = UserDefaults(suiteName: "group.com.sum.eduid")!;
             let accounts = preferences.array(forKey: constAccountsPreference) as? [[String: Any]] ?? [[String: Any]]();
             let account = accounts.filter { $0[constAccountType] as? String == args[constAccountType] || $0[constAccountName] as? String == args[constAccountName] }.first;
             if account != nil {
@@ -70,7 +70,7 @@ public class SwiftAccountManagerPlugin: NSObject, FlutterPlugin {
 
     private func removeAccount(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         if let args = call.arguments as? [String: String] {
-            let preferences = UserDefaults(suiteName: "group.com.sum.eduid")?;
+            let preferences = UserDefaults(suiteName: "group.com.sum.eduid")!;
             var accounts = preferences.array(forKey: constAccountsPreference) as? [[String: Any]] ?? [[String: Any]]();
             accounts = accounts.filter { $0[constAccountType] as? String != args[constAccountType] || $0[constAccountName] as? String != args[constAccountName] };
             preferences.set(accounts, forKey: constAccountsPreference);
@@ -82,7 +82,7 @@ public class SwiftAccountManagerPlugin: NSObject, FlutterPlugin {
     
     private func setAccessToken(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         if let args = call.arguments as? [String: String?] {
-            let preferences = UserDefaults(suiteName: "group.com.sum.eduid")?;
+            let preferences = UserDefaults(suiteName: "group.com.sum.eduid")!;
             var accounts = preferences.array(forKey: constAccountsPreference) as? [[String: Any]] ?? [[String: Any]]();
             var account = accounts.filter { $0[constAccountType] as? String == args[constAccountType] || $0[constAccountName] as? String == args[constAccountName] }.first;
             if account != nil {
